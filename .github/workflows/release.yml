@@ -51,9 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: DevPact-macOS-arm64
-          path: |
-            dist/DevPact-macOS-arm64.dmg
-            dist/DevPact.app
+          path: dist/DevPact-macOS-arm64.dmg
 
   build-macos-x64:
     runs-on: macos-latest
@@ -63,15 +61,12 @@ jobs:
 
       - name: Set up Python (x86_64 via Rosetta)
         run: |
-          # Install x86_64 Python using Rosetta 2
           arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true
           
-          # Use conda for x86_64 Python
           curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
           /bin/bash ~/miniconda.sh -b -p $HOME/miniconda
           echo "$HOME/miniconda/bin" >> $GITHUB_PATH
           
-          # Verify architecture
           $HOME/miniconda/bin/python -c "import platform; print(platform.machine())"
 
       - name: Install dependencies (x86_64)
@@ -109,9 +104,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: DevPact-macOS-x64
-          path: |
-            dist/DevPact-macOS-x64.dmg
-            dist/DevPact.app
+          path: dist/DevPact-macOS-x64.dmg
 
   build-windows-x64:
     runs-on: windows-latest
@@ -207,9 +200,23 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+          merge-multiple: false
 
       - name: Display structure of downloaded files
-        run: ls -R artifacts
+        run: |
+          echo "=== Artifacts Structure ==="
+          ls -R artifacts
+          echo ""
+          echo "=== Finding release files ==="
+          find artifacts -type f \( -name "*.dmg" -o -name "*.zip" -o -name "*.tar.gz" \)
+
+      - name: Move files to release directory
+        run: |
+          mkdir -p release_files
+          find artifacts -name "*.dmg" -exec cp {} release_files/ \;
+          find artifacts -name "*.zip" -exec cp {} release_files/ \;
+          find artifacts -name "*.tar.gz" -exec cp {} release_files/ \;
+          ls -la release_files/
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -235,9 +242,6 @@ jobs:
             
             ### What's Changed
             See [CHANGELOG.md](CHANGELOG.md) for details.
-          files: |
-            artifacts/**/*.dmg
-            artifacts/**/*.zip
-            artifacts/**/*.tar.gz
+          files: release_files/*
           draft: false
           prerelease: false
