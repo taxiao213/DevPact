@@ -18,6 +18,7 @@ English | [简体中文](./README.md)
 ## 📋 Table of Contents
 
 - [Features](#-features)
+- [Screenshots](#-screenshots)
 - [Supported Platforms](#-supported-platforms)
 - [Supported LLMs](#-supported-llms)
 - [Installation](#-installation)
@@ -41,18 +42,39 @@ English | [简体中文](./README.md)
 
 ---
 
+## 📸 Screenshots
+
+### Main Interface
+
+![DevPact Settings](./pic/DevPact_03.png)
+
+### Settings
+
+![DevPact Contract Document](./pic/DevPact_04.png)
+
+
+![DevPact 前端任务](./pic/DevPact_05.png)
+
+### Contract Document
+
+![DevPact Backend Tasks](./pic/DevPact_06.png)
+
+
+![DevPact Multi-language Support](./pic/DevPact_07.png)
+
+---
+
 ## 💻 Supported Platforms
 
-| Platform | Architecture | Status |
-|----------|--------------|--------|
-| **macOS** | ARM64 (Apple Silicon M1/M2/M3) | ✅ Supported |
-| **macOS** | x86-64 (Intel) | ✅ Supported |
-| **Windows** | x86-64 (64-bit) | ✅ Supported |
-| **Windows** | x86 (32-bit) | ✅ Supported |
-| **Windows** | ARM64 (Windows on ARM) | ✅ Supported |
-| **Linux** | x86-64 (64-bit) | ✅ Supported |
-| **Linux** | x86 (32-bit) | ✅ Supported |
-| **Linux** | ARM (ARMv7/ARM64) | ✅ Supported |
+
+| Platform    | Architecture                   | Status       | Notes                                   |
+| ----------- | ------------------------------ | ------------ | --------------------------------------- |
+| **macOS**   | ARM64 (Apple Silicon M1/M2/M3) | ✅ Supported | Recommended for Apple Silicon Mac users |
+| **macOS**   | x86-64 (Intel)                 | ✅ Supported | For Intel Mac users                     |
+| **Windows** | x86-64 (64-bit)                | ✅ Supported | Recommended for 64-bit Windows users    |
+| **Linux**   | x86-64 (64-bit)                | ✅ Supported | Recommended for 64-bit Linux users      |
+
+> ⚠️ **Note**: Due to PyQt6 limitations, Windows x86 (32-bit), Windows ARM64, Linux x86 (32-bit), and Linux ARM architectures are not currently supported.
 
 ---
 
@@ -60,22 +82,24 @@ English | [简体中文](./README.md)
 
 ### Chinese LLMs
 
-| Provider | Models |
-|----------|--------|
-| **Zhipu GLM** | glm-5, glm-4.7, glm-4.6, glm-4.5, glm-4.5v-flash, glm-4.5-air |
-| **Qwen** | qwen3.5-plus, qwen3.5-397b, qwen3-coder-plus, qwen2.5-max, qwen-max, etc. |
-| **Doubao** | doubao-2.0-pro, doubao-2.0-lite, doubao-1.5-pro, doubao-pro-32k, etc. |
-| **Kimi** | kimi-k2.5, kimi-k2 |
-| **MiniMax** | minimax-m2.5, minimax-m2.1, minimax-m2 |
-| **DeepSeek** | deepseek-v3.2, deepseek-r1, deepseek-chat, deepseek-coder, deepseek-reasoner |
+
+| Provider      | Models                                                                       |
+| ------------- | ---------------------------------------------------------------------------- |
+| **Zhipu GLM** | glm-5, glm-4.7, glm-4.6, glm-4.5, glm-4.5v-flash, glm-4.5-air                |
+| **Qwen**      | qwen3.5-plus, qwen3.5-397b, qwen3-coder-plus, qwen2.5-max, qwen-max, etc.    |
+| **Doubao**    | doubao-2.0-pro, doubao-2.0-lite, doubao-1.5-pro, doubao-pro-32k, etc.        |
+| **Kimi**      | kimi-k2.5, kimi-k2                                                           |
+| **MiniMax**   | minimax-m2.5, minimax-m2.1, minimax-m2                                       |
+| **DeepSeek**  | deepseek-v3.2, deepseek-r1, deepseek-chat, deepseek-coder, deepseek-reasoner |
 
 ### International LLMs
 
-| Provider | Models |
-|----------|--------|
-| **OpenAI** | gpt-5.3, gpt-5.2, gpt-4.5, gpt-4o, gpt-4o-mini, o3-mini, o1, o1-pro |
+
+| Provider   | Models                                                                 |
+| ---------- | ---------------------------------------------------------------------- |
+| **OpenAI** | gpt-5.3, gpt-5.2, gpt-4.5, gpt-4o, gpt-4o-mini, o3-mini, o1, o1-pro    |
 | **Claude** | claude-opus-4.6, claude-opus-4.5, claude-sonnet-4.6, claude-3-5-sonnet |
-| **Gemini** | gemini-3.1-pro, gemini-3-deep-think, gemini-2.5-pro, gemini-2.5-flash |
+| **Gemini** | gemini-3.1-pro, gemini-3-deep-think, gemini-2.5-pro, gemini-2.5-flash  |
 
 > 💡 **Tip**: Custom model names are supported - you can enter any model name directly
 
@@ -134,6 +158,7 @@ chmod +x build.sh
 ```
 
 Build artifacts in `dist/` directory:
+
 - `DevPact.app` - macOS application
 - `DevPact-Installer.dmg` - DMG installer
 
@@ -145,6 +170,7 @@ build_windows.bat
 ```
 
 Build artifacts in `dist/` directory:
+
 - `DevPact.exe` - Windows executable
 
 #### Linux
@@ -155,6 +181,7 @@ chmod +x build.sh
 ```
 
 Build artifacts in `dist/` directory:
+
 - `devpact` - Linux executable
 
 ### GitHub Actions Auto Build
@@ -162,22 +189,21 @@ Build artifacts in `dist/` directory:
 The project supports automatic multi-platform builds via GitHub Actions:
 
 1. Create and push a version tag:
+
    ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
+   git tag DEV_PACT1.0.0
+   git push origin DEV_PACT1.0.0
    ```
-
 2. GitHub Actions will automatically build the following versions:
-   - macOS ARM64 (Apple Silicon)
-   - macOS x86-64 (Intel)
-   - Windows x86-64
-   - Windows x86
-   - Windows ARM64
-   - Linux x86-64
-   - Linux x86
-   - Linux ARM64
 
-3. After the build completes, download the corresponding version from the GitHub Releases page
+
+   | Platform | Architecture          | Output File                |
+   | -------- | --------------------- | -------------------------- |
+   | macOS    | ARM64 (Apple Silicon) | `DevPact-macOS-arm64.dmg`  |
+   | macOS    | x86-64 (Intel)        | `DevPact-macOS-x64.dmg`    |
+   | Windows  | x86-64                | `DevPact-Windows-x64.zip`  |
+   | Linux    | x86-64                | `DevPact-Linux-x64.tar.gz` |
+3. After the build completes, download the corresponding version from the [GitHub Releases](https://github.com/taxiao213/DevPact/releases) page
 
 ---
 
@@ -207,18 +233,19 @@ python app.py
 ### Start Development
 
 1. **Set Project Paths** (optional)
+
    - Frontend Path: Select the frontend project directory
    - Backend Path: Select the backend project directory
-
 2. **Enter Requirements**
-   - Describe your development requirements in detail in the input box
 
+   - Describe your development requirements in detail in the input box
 3. **Start Development**
+
    - Click the **🚀 Start Development** button
    - Watch the real-time discussion process
    - View the generated contract documents and task lists
-
 4. **Download Results**
+
    - Contract Document
    - Frontend Tasks
    - Backend Tasks
@@ -233,6 +260,7 @@ python app.py
 ```
 
 Or manually remove:
+
 ```bash
 rm -rf /Applications/DevPact.app
 rm -rf ~/Library/Preferences/app.devpact.main.plist
@@ -246,6 +274,7 @@ Uninstall via Control Panel or directly delete program files
 #### Linux
 
 Delete executable and configuration directory:
+
 ```bash
 rm -rf /usr/local/bin/devpact
 rm -rf ~/.config/MultiAgentDev
@@ -269,6 +298,7 @@ DevPact/
 ├── clear_cache.sh      # Clear cache script
 ├── requirements.txt    # Python dependencies
 ├── build.spec          # PyInstaller configuration
+├── pic/                # Application screenshots
 ├── .github/
 │   └── workflows/
 │       └── release.yml # GitHub Actions configuration
@@ -294,6 +324,7 @@ xattr -cr /Applications/DevPact.app
 ### 3. Settings not saved
 
 Run the clear cache script and try again:
+
 ```bash
 ./clear_cache.sh
 ```

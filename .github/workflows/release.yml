@@ -32,10 +32,9 @@ jobs:
 
       - name: Create DMG
         run: |
-          brew install create-dmg
+          brew install create-dmg || true
           create-dmg \
             --volname "DevPact" \
-            --volicon "dist/DevPact.app/Contents/Resources/icon.icns" \
             --window-pos 200 120 \
             --window-size 800 450 \
             --icon-size 100 \
@@ -135,67 +134,6 @@ jobs:
           name: DevPact-Windows-x64
           path: dist/DevPact-Windows-x64.zip
 
-  build-windows-x86:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          architecture: 'x86'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Build with PyInstaller
-        run: |
-          pyinstaller build.spec --noconfirm
-
-      - name: Create ZIP archive
-        run: |
-          Compress-Archive -Path dist/DevPact -DestinationPath dist/DevPact-Windows-x86.zip
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: DevPact-Windows-x86
-          path: dist/DevPact-Windows-x86.zip
-
-  build-windows-arm64:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Build with PyInstaller (ARM64)
-        run: |
-          pyinstaller build.spec --noconfirm --target-arch arm64
-
-      - name: Create ZIP archive
-        run: |
-          Compress-Archive -Path dist/DevPact -DestinationPath dist/DevPact-Windows-arm64.zip
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: DevPact-Windows-arm64
-          path: dist/DevPact-Windows-arm64.zip
-
   build-linux-x64:
     runs-on: ubuntu-latest
     steps:
@@ -232,121 +170,12 @@ jobs:
           name: DevPact-Linux-x64
           path: dist/DevPact-Linux-x64.tar.gz
 
-  build-linux-x86:
-    runs-on: ubuntu-latest
-    container:
-      image: i386/ubuntu:latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install system dependencies
-        run: |
-          apt-get update
-          apt-get install -y python3 python3-pip libgl1-mesa-glx libglib2.0-0
-
-      - name: Install Python dependencies
-        run: |
-          python3 -m pip install --upgrade pip
-          pip3 install -r requirements.txt
-
-      - name: Build with PyInstaller
-        run: |
-          pyinstaller build.spec --noconfirm
-
-      - name: Create TAR archive
-        run: |
-          tar -czvf dist/DevPact-Linux-x86.tar.gz -C dist DevPact
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: DevPact-Linux-x86
-          path: dist/DevPact-Linux-x86.tar.gz
-
-  build-linux-arm64:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-glx libglib2.0-0 gcc-aarch64-linux-gnu
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Build with PyInstaller
-        run: |
-          pyinstaller build.spec --noconfirm --target-arch aarch64
-
-      - name: Create TAR archive
-        run: |
-          tar -czvf dist/DevPact-Linux-arm64.tar.gz -C dist DevPact
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: DevPact-Linux-arm64
-          path: dist/DevPact-Linux-arm64.tar.gz
-
-  build-linux-arm:
-    runs-on: ubuntu-latest
-    container:
-      image: arm32v7/ubuntu:latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install system dependencies
-        run: |
-          apt-get update || true
-          apt-get install -y python3 python3-pip libgl1-mesa-glx libglib2.0-0 || true
-
-      - name: Install Python dependencies
-        run: |
-          python3 -m pip install --upgrade pip || true
-          pip3 install -r requirements.txt || true
-
-      - name: Build with PyInstaller
-        run: |
-          pyinstaller build.spec --noconfirm || true
-
-      - name: Create TAR archive
-        run: |
-          tar -czvf dist/DevPact-Linux-arm.tar.gz -C dist DevPact || true
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: DevPact-Linux-arm
-          path: dist/DevPact-Linux-arm.tar.gz
-        continue-on-error: true
-
   release:
     needs:
       - build-macos-arm64
       - build-macos-x64
       - build-windows-x64
-      - build-windows-x86
-      - build-windows-arm64
       - build-linux-x64
-      - build-linux-x86
-      - build-linux-arm64
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -370,14 +199,16 @@ jobs:
             
             | Platform | Architecture | Download |
             |----------|--------------|----------|
-            | macOS | ARM64 (Apple Silicon) | DevPact-macOS-arm64.dmg |
+            | macOS | ARM64 (Apple Silicon M1/M2/M3) | DevPact-macOS-arm64.dmg |
             | macOS | x86-64 (Intel) | DevPact-macOS-x64.dmg |
             | Windows | x86-64 | DevPact-Windows-x64.zip |
-            | Windows | x86 | DevPact-Windows-x86.zip |
-            | Windows | ARM64 | DevPact-Windows-arm64.zip |
             | Linux | x86-64 | DevPact-Linux-x64.tar.gz |
-            | Linux | x86 | DevPact-Linux-x86.tar.gz |
-            | Linux | ARM64 | DevPact-Linux-arm64.tar.gz |
+            
+            ### Notes
+            - **macOS ARM64**: For Apple Silicon Macs (M1/M2/M3)
+            - **macOS x86-64**: For Intel-based Macs
+            - **Windows x86-64**: For 64-bit Windows systems
+            - **Linux x86-64**: For 64-bit Linux systems
             
             ### What's Changed
             See [CHANGELOG.md](CHANGELOG.md) for details.

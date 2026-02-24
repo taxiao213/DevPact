@@ -26,7 +26,7 @@ wheels/
 
 # PyInstaller
 *.manifest
-*.spec
+# *.spec
 
 # Installer logs
 pip-log.txt
@@ -51,7 +51,7 @@ coverage.xml
 *.pot
 
 # Environments
-.env
+# .env
 .venv
 env/
 venv/

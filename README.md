@@ -18,6 +18,7 @@
 ## 📋 目录
 
 - [功能特性](#-功能特性)
+- [应用截图](#-应用截图)
 - [支持平台](#-支持平台)
 - [支持的大模型](#-支持的大模型)
 - [安装依赖](#-安装依赖)
@@ -41,18 +42,39 @@
 
 ---
 
+## 📸 应用截图
+
+### 主界面
+
+![DevPact 设置界面](./pic/DevPact_03.png)
+
+### 设置界面
+
+![DevPact 契约文档](./pic/DevPact_04.png)
+
+
+![DevPact 前端任务](./pic/DevPact_05.png)
+
+### 契约文档
+
+![DevPact 后端任务](./pic/DevPact_06.png)
+
+
+![DevPact 多语言支持](./pic/DevPact_07.png)
+
+---
+
 ## 💻 支持平台
 
-| 平台 | 架构 | 状态 |
-|------|------|------|
-| **macOS** | ARM64 (Apple Silicon M1/M2/M3) | ✅ 支持 |
-| **macOS** | x86-64 (Intel) | ✅ 支持 |
-| **Windows** | x86-64 (64位) | ✅ 支持 |
-| **Windows** | x86 (32位) | ✅ 支持 |
-| **Windows** | ARM64 (Windows on ARM) | ✅ 支持 |
-| **Linux** | x86-64 (64位) | ✅ 支持 |
-| **Linux** | x86 (32位) | ✅ 支持 |
-| **Linux** | ARM (ARMv7/ARM64) | ✅ 支持 |
+
+| 平台        | 架构                           | 状态    | 说明                        |
+| ----------- | ------------------------------ | ------- | --------------------------- |
+| **macOS**   | ARM64 (Apple Silicon M1/M2/M3) | ✅ 支持 | 推荐 Apple Silicon Mac 用户 |
+| **macOS**   | x86-64 (Intel)                 | ✅ 支持 | Intel Mac 用户              |
+| **Windows** | x86-64 (64位)                  | ✅ 支持 | 推荐 64 位 Windows 用户     |
+| **Linux**   | x86-64 (64位)                  | ✅ 支持 | 推荐 64 位 Linux 用户       |
+
+> ⚠️ **注意**: 由于 PyQt6 的限制，暂不支持 Windows x86 (32位)、Windows ARM64、Linux x86 (32位)、Linux ARM 等架构。
 
 ---
 
@@ -60,22 +82,24 @@
 
 ### 国内大模型
 
-| 提供商 | 模型列表 |
-|--------|----------|
-| **智谱 GLM** | glm-5, glm-4.7, glm-4.6, glm-4.5, glm-4.5v-flash, glm-4.5-air |
-| **通义千问** | qwen3.5-plus, qwen3.5-397b, qwen3-coder-plus, qwen2.5-max, qwen-max 等 |
-| **豆包** | doubao-2.0-pro, doubao-2.0-lite, doubao-1.5-pro, doubao-pro-32k 等 |
-| **Kimi** | kimi-k2.5, kimi-k2 |
-| **MiniMax** | minimax-m2.5, minimax-m2.1, minimax-m2 |
+
+| 提供商       | 模型列表                                                                     |
+| ------------ | ---------------------------------------------------------------------------- |
+| **智谱 GLM** | glm-5, glm-4.7, glm-4.6, glm-4.5, glm-4.5v-flash, glm-4.5-air                |
+| **通义千问** | qwen3.5-plus, qwen3.5-397b, qwen3-coder-plus, qwen2.5-max, qwen-max 等       |
+| **豆包**     | doubao-2.0-pro, doubao-2.0-lite, doubao-1.5-pro, doubao-pro-32k 等           |
+| **Kimi**     | kimi-k2.5, kimi-k2                                                           |
+| **MiniMax**  | minimax-m2.5, minimax-m2.1, minimax-m2                                       |
 | **DeepSeek** | deepseek-v3.2, deepseek-r1, deepseek-chat, deepseek-coder, deepseek-reasoner |
 
 ### 国际大模型
 
-| 提供商 | 模型列表 |
-|--------|----------|
-| **OpenAI** | gpt-5.3, gpt-5.2, gpt-4.5, gpt-4o, gpt-4o-mini, o3-mini, o1, o1-pro |
+
+| 提供商     | 模型列表                                                               |
+| ---------- | ---------------------------------------------------------------------- |
+| **OpenAI** | gpt-5.3, gpt-5.2, gpt-4.5, gpt-4o, gpt-4o-mini, o3-mini, o1, o1-pro    |
 | **Claude** | claude-opus-4.6, claude-opus-4.5, claude-sonnet-4.6, claude-3-5-sonnet |
-| **Gemini** | gemini-3.1-pro, gemini-3-deep-think, gemini-2.5-pro, gemini-2.5-flash |
+| **Gemini** | gemini-3.1-pro, gemini-3-deep-think, gemini-2.5-pro, gemini-2.5-flash  |
 
 > 💡 **提示**: 支持自定义模型名称，可直接输入任意模型名称
 
@@ -134,6 +158,7 @@ chmod +x build.sh
 ```
 
 构建产物位于 `dist/` 目录：
+
 - `DevPact.app` - macOS 应用程序
 - `DevPact-Installer.dmg` - DMG 安装包
 
@@ -145,6 +170,7 @@ build_windows.bat
 ```
 
 构建产物位于 `dist/` 目录：
+
 - `DevPact.exe` - Windows 可执行文件
 
 #### Linux
@@ -155,6 +181,7 @@ chmod +x build.sh
 ```
 
 构建产物位于 `dist/` 目录：
+
 - `devpact` - Linux 可执行文件
 
 ### GitHub Actions 自动构建
@@ -162,22 +189,21 @@ chmod +x build.sh
 项目支持通过 GitHub Actions 自动构建多平台版本：
 
 1. 创建并推送版本标签：
+
    ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
+   git tag DEV_PACT1.0.0
+   git push origin DEV_PACT1.0.0
    ```
-
 2. GitHub Actions 将自动构建以下版本：
-   - macOS ARM64 (Apple Silicon)
-   - macOS x86-64 (Intel)
-   - Windows x86-64
-   - Windows x86
-   - Windows ARM64
-   - Linux x86-64
-   - Linux x86
-   - Linux ARM64
 
-3. 构建完成后，在 GitHub Releases 页面下载对应版本
+
+   | 平台    | 架构                  | 产物文件                   |
+   | ------- | --------------------- | -------------------------- |
+   | macOS   | ARM64 (Apple Silicon) | `DevPact-macOS-arm64.dmg`  |
+   | macOS   | x86-64 (Intel)        | `DevPact-macOS-x64.dmg`    |
+   | Windows | x86-64                | `DevPact-Windows-x64.zip`  |
+   | Linux   | x86-64                | `DevPact-Linux-x64.tar.gz` |
+3. 构建完成后，在 [GitHub Releases](https://github.com/taxiao213/DevPact/releases) 页面下载对应版本
 
 ---
 
@@ -207,18 +233,19 @@ python app.py
 ### 开始开发
 
 1. **设置项目路径**（可选）
+
    - 前端路径：选择前端项目目录
    - 后端路径：选择后端项目目录
-
 2. **输入需求**
-   - 在需求输入框中详细描述开发需求
 
+   - 在需求输入框中详细描述开发需求
 3. **开始开发**
+
    - 点击 **🚀 开始开发** 按钮
    - 观察实时讨论过程
    - 查看生成的契约文档和任务列表
-
 4. **下载结果**
+
    - 契约文档
    - 前端任务
    - 后端任务
@@ -233,6 +260,7 @@ python app.py
 ```
 
 或手动删除：
+
 ```bash
 rm -rf /Applications/DevPact.app
 rm -rf ~/Library/Preferences/app.devpact.main.plist
@@ -246,6 +274,7 @@ rm -rf ~/.config/MultiAgentDev
 #### Linux
 
 删除可执行文件和配置目录：
+
 ```bash
 rm -rf /usr/local/bin/devpact
 rm -rf ~/.config/MultiAgentDev
@@ -269,6 +298,7 @@ DevPact/
 ├── clear_cache.sh      # 清理缓存脚本
 ├── requirements.txt    # Python 依赖
 ├── build.spec          # PyInstaller 配置
+├── pic/                # 应用截图
 ├── .github/
 │   └── workflows/
 │       └── release.yml # GitHub Actions 配置
@@ -294,6 +324,7 @@ xattr -cr /Applications/DevPact.app
 ### 3. 配置未保存
 
 运行清理脚本后重试：
+
 ```bash
 ./clear_cache.sh
 ```

@@ -48,7 +48,7 @@ hidden_imports = [
     'typing_extensions',
 ]
 
-collect_all_packages = [
+collect_packages = [
     'langgraph',
     'langchain',
     'langchain_openai',
@@ -57,17 +57,38 @@ collect_all_packages = [
     'openai',
 ]
 
+from PyInstaller.utils.hooks import collect_data_files, collect_submodules, collect_dynamic_libs
+
+datas = [
+    ('state.py', '.'),
+    ('agents.py', '.'),
+    ('discussion.py', '.'),
+    ('code_reader.py', '.'),
+]
+
+binaries = []
+all_hiddenimports = hidden_imports.copy()
+
+for pkg in collect_packages:
+    try:
+        datas.extend(collect_data_files(pkg))
+    except Exception:
+        pass
+    try:
+        all_hiddenimports.extend(collect_submodules(pkg))
+    except Exception:
+        pass
+    try:
+        binaries.extend(collect_dynamic_libs(pkg))
+    except Exception:
+        pass
+
 a = Analysis(
     ['app.py'],
     pathex=[],
-    binaries=[],
-    datas=[
-        ('state.py', '.'),
-        ('agents.py', '.'),
-        ('discussion.py', '.'),
-        ('code_reader.py', '.'),
-    ],
-    hiddenimports=hidden_imports,
+    binaries=binaries,
+    datas=datas,
+    hiddenimports=all_hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -77,13 +98,6 @@ a = Analysis(
     cipher=block_cipher,
     noarchive=False,
 )
-
-for pkg in collect_all_packages:
-    from PyInstaller.utils.hooks import collect_all
-    pkg_datas, pkg_binaries, pkg_hiddenimports = collect_all(pkg)
-    a.datas += pkg_datas
-    a.binaries += pkg_binaries
-    a.hiddenimports += pkg_hiddenimports
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
