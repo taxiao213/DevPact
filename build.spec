@@ -83,7 +83,10 @@ for pkg in collect_packages:
     except Exception:
         pass
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
+try:
+    base_dir = SPECPATH
+except NameError:
+    base_dir = os.getcwd()
 
 if sys.platform == 'win32':
     icon_path = os.path.join(base_dir, 'icon.ico')
