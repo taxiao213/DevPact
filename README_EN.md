@@ -46,21 +46,19 @@ English | [简体中文](./README.md)
 
 ### Main Interface
 
-![DevPact Settings](./pic/DevPact_03.png)
+![DevPact Main](./pic/DevPact_03.png)
 
 ### Settings
 
-![DevPact Contract Document](./pic/DevPact_04.png)
+![DevPact Settings](./pic/DevPact_04.png)
 
-
-![DevPact 前端任务](./pic/DevPact_05.png)
+![DevPact Settings](./pic/DevPact_05.png)
 
 ### Contract Document
 
-![DevPact Backend Tasks](./pic/DevPact_06.png)
+![DevPact Contract Document](./pic/DevPact_06.png)
 
-
-![DevPact Multi-language Support](./pic/DevPact_07.png)
+![DevPact Contract Document](./pic/DevPact_07.png)
 
 ---
 

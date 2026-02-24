@@ -46,21 +46,19 @@
 
 ### 主界面
 
-![DevPact 设置界面](./pic/DevPact_03.png)
+![DevPact 主界面](./pic/DevPact_03.png)
 
 ### 设置界面
 
-![DevPact 契约文档](./pic/DevPact_04.png)
+![DevPact 设置界面](./pic/DevPact_04.png)
 
-
-![DevPact 前端任务](./pic/DevPact_05.png)
+![DevPact 设置界面](./pic/DevPact_05.png)
 
 ### 契约文档
 
-![DevPact 后端任务](./pic/DevPact_06.png)
+![DevPact 契约文档](./pic/DevPact_06.png)
 
-
-![DevPact 多语言支持](./pic/DevPact_07.png)
+![DevPact 契约文档](./pic/DevPact_07.png)
 
 ---
 
