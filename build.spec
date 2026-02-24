@@ -83,6 +83,15 @@ for pkg in collect_packages:
     except Exception:
         pass
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+if sys.platform == 'win32':
+    icon_path = os.path.join(base_dir, 'icon.ico')
+    if not os.path.exists(icon_path):
+        icon_path = None
+else:
+    icon_path = None
+
 a = Analysis(
     ['app.py'],
     pathex=[],
@@ -117,6 +126,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=icon_path,
 )
 
 coll = COLLECT(
@@ -130,10 +140,14 @@ coll = COLLECT(
 )
 
 if sys.platform == 'darwin':
+    mac_icon_path = os.path.join(base_dir, 'icon.icns')
+    if not os.path.exists(mac_icon_path):
+        mac_icon_path = None
+    
     app = BUNDLE(
         coll,
         name='DevPact.app',
-        icon=None,
+        icon=mac_icon_path,
         bundle_identifier='app.devpact.main',
         info_plist={
             'CFBundleName': 'DevPact',

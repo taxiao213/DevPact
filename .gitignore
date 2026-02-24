@@ -81,8 +81,8 @@ Desktop.ini
 *~
 
 # Project specific
-*.icns
-*.iconset/
+# *.icns
+# *.iconset/
 .ruff_cache/
 .mypy_cache/
 
